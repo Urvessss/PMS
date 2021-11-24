@@ -1,9 +1,11 @@
 package com.pms.service;
 
+import com.pms.exception.AccountNotFoundException;
+import com.pms.exception.BankNotAddedException;
 import com.pms.model.BankDetails;
 
 interface IBankService {
-	public BankDetails addBank(BankDetails bankdetails);
+	public BankDetails addBank(BankDetails bankdetails) throws BankNotAddedException;
 
-	public BankDetails deleteBankByAcc(Long accno);
+	public BankDetails deleteBankByAcc(Long accno) throws AccountNotFoundException;
 }

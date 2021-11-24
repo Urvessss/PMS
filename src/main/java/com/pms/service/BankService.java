@@ -15,8 +15,8 @@ import com.pms.repositary.BankRepositary;
 
 @Service
 
-public class BankService {
-	public static final Logger LOG = LoggerFactory.getLogger(BankService.class);
+public class BankService implements IBankService {
+	public static final Logger LOG = LoggerFactory.getLogger(IBankService.class);
 
 	@Autowired
 	private BankRepositary iBankRepository;
@@ -32,7 +32,7 @@ public class BankService {
 
 	}
 
-	public BankDetails deleteBankByAcc(Long accno) throws AccountNotFoundException {
+	public BankDetails deleteBankByAcc(Long accno) throws AccountNotFoundException  {
 		LOG.info("deleteBankByAcc");
 		Optional<BankDetails> bank = iBankRepository.findById(accno);
 		if (bank.isPresent()) {

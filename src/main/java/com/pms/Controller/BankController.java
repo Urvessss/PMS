@@ -27,21 +27,23 @@ public class BankController {
 	@Autowired
 	private BankService ibankService;
 
+	// http://localhost:8082/swagger-ui.html#/bank-controller/addBankUsingPOST
 	@PostMapping("/addBank")
 	public ResponseEntity<BankDetails> addBank(@RequestBody BankDetails bankdetails) throws BankNotAddedException {
 		System.out.println("Controller addBank");
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "Bank addded  successfully.");
-		return new ResponseEntity<BankDetails>(ibankService.addBank(bankdetails), headers, HttpStatus.CREATED);
+		headers.add("message", "Bank addded into Your Database successfully.");
+		return new ResponseEntity<BankDetails>(ibankService.addBank(bankdetails), headers, HttpStatus.OK);
 	}
 
+	// http://localhost:8082/swagger-ui.html#/bank-controller/deleteBankByAccUsingDELETE
 	@DeleteMapping("/deletebankbyaccno/{accno}")
 	public ResponseEntity<BankDetails> deleteBankByAcc(@PathVariable(name = "accno") Long accno)
 			throws AccountNotFoundException {
 		LOG.info("deletebankbyaccno");
 		BankDetails bank = ibankService.deleteBankByAcc(accno); // line
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This is Bank deleted");
+		headers.add("message", "This is Bank deleted successfully");
 		LOG.info(headers.toString());
 		ResponseEntity<BankDetails> response = new ResponseEntity<BankDetails>(bank, headers, HttpStatus.OK);
 		return response;
