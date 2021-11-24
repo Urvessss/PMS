@@ -16,16 +16,16 @@ import com.pms.exception.AccountNotFoundException;
 
 import com.pms.exception.BankNotAddedException;
 import com.pms.model.BankDetails;
-import com.pms.service.IBankService;
+import com.pms.service.BankService;
 
 @RestController
 
-public class IBankController {
+public class BankController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(IBankController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BankController.class);
 
 	@Autowired
-	private IBankService ibankService;
+	private BankService ibankService;
 
 	@PostMapping("/addBank")
 	public ResponseEntity<BankDetails> addBank(@RequestBody BankDetails bankdetails) throws BankNotAddedException {
