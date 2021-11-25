@@ -24,9 +24,16 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(AccountNotFoundException.class)
 	public ResponseEntity<Object> handleAccountNotFoundException() {
-		LOG.error("handleBankAlreadyAddedException");
+		LOG.error("handleAccountNotFoundException");
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This Bank is NOT available in the database.");
+		headers.add("message", "This Bank Account Not avilable.");
+		return new ResponseEntity<Object>(null, headers, HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(BankDoesNotExistsException.class)
+	public ResponseEntity<Object> handleBankDoesNotExistsException() {
+		LOG.error("handleBankDoesNotExistsException");
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", "This Bank is Not Exits .");
 		return new ResponseEntity<Object>(null, headers, HttpStatus.NOT_FOUND);
 	}
 }

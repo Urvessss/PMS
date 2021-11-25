@@ -5,10 +5,15 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.pms.exception.AccountNotFoundException;
-
+import com.pms.exception.BankDoesNotExistsException;
 import com.pms.exception.BankNotAddedException;
 import com.pms.model.BankDetails;
 import com.pms.repositary.BankRepositary;
@@ -32,7 +37,7 @@ public class BankService implements IBankService {
 
 	}
 
-	public BankDetails deleteBankByAcc(Long accno) throws AccountNotFoundException  {
+	public BankDetails deleteBankByAcc(Long accno) throws AccountNotFoundException {
 		LOG.info("deleteBankByAcc");
 		Optional<BankDetails> bank = iBankRepository.findById(accno);
 		if (bank.isPresent()) {
@@ -45,4 +50,18 @@ public class BankService implements IBankService {
 		}
 
 	}
+	public BankDetails updateBankDeatils(BankDetails bankDetails) throws BankDoesNotExistsException {
+		LOG.info("updateBankDeatils");
+		if(iBankRepository.existsById(bankDetails.getAccno())){
+			LOG.info("Bank Details update successfully");
+			return iBankRepository.save(bankDetails);
+		}
+		else {
+			LOG.info("This bank already exist in the database");
+		throw new BankDoesNotExistsException("This bank already exists in the database");
+		}
+	}
+
+	
+	
 }

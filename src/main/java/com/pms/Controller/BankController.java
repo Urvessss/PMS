@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,5 +49,16 @@ public class BankController {
 		ResponseEntity<BankDetails> response = new ResponseEntity<BankDetails>(bank, headers, HttpStatus.OK);
 		return response;
 
+	}
+	
+	@PutMapping("/updatebankdetails")
+	public ResponseEntity<BankDetails> updateBank(@RequestBody BankDetails bankDetails) {
+		LOG.info("Controller updateBank");
+		BankDetails bank = ibankService.updateBankDeatils(bankDetails);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", "Bank updated successfully.");
+		LOG.info(headers.toString());
+		ResponseEntity<BankDetails> response = new ResponseEntity<BankDetails>(bank, headers, HttpStatus.OK);
+		return response;
 	}
 }
